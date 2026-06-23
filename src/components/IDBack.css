@@ -1,0 +1,428 @@
+/* ============================================================
+   ID BACK — purely HTML/CSS layout (matches the template design)
+   Card dimensions: 856 x 540 px
+   ============================================================ */
+
+.id-back {
+  position: relative;
+  width: 856px;
+  height: 540px;
+  background: #ffffff;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Full-bleed background template */
+.id-template-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ================================================================
+   TEMPLATE MODE — data-only overlays, all static content is in
+   the template image so we only position the dynamic values.
+   ================================================================ */
+.id-back--template-mode .id-template-bg {
+  z-index: 0;
+}
+
+/* Base overlay style */
+.id-back__ov {
+  position: absolute;
+  z-index: 1;
+  font-family: 'Arial', sans-serif;
+  color: #000000;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+}
+
+.id-back__ov-line {
+  display: block;
+  line-height: 1.3;
+}
+
+/* Birthday — top-left cell, centered */
+.id-back__ov--birthday {
+  width: 46%;
+  height: 50px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+/* Validity — top-right cell, centered */
+.id-back__ov--validity {
+  width: 54%;
+  height: 50px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}
+
+/* Parent names */
+.id-back__ov--parents {
+  width: 355px;
+  line-height: 1.35;
+}
+
+/* Address */
+.id-back__ov--address {
+  width: 355px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+/* Contact numbers */
+.id-back__ov--contacts {
+  width: 355px;
+  line-height: 1.35;
+}
+
+/* Sub-label under each data block */
+.id-back__ov-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 400;
+  color: #555555;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+/* ================================================================
+   NO-TEMPLATE MODE — full HTML layout
+   ================================================================ */
+
+/* All content sits above the bg */
+.id-back > *:not(.id-template-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Top row: Birthdate | Validity ---- */
+.id-back__top-row {
+  display: flex;
+  border-bottom: 1.5px solid #000;
+  height: 62px;
+  align-items: center;
+}
+
+.id-back__top-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+}
+
+.id-back__top-cell--right {
+  border-left: 1.5px solid #000;
+}
+
+.id-back__top-value {
+  font-size: 17px;
+  font-weight: 700;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.id-back__top-label {
+  font-size: 11px;
+  color: #333;
+  margin-top: 2px;
+}
+
+/* ---- Emergency section ---- */
+.id-back__emergency-section {
+  display: flex;
+  height: 330px;
+  border-bottom: 1.5px solid #000;
+}
+
+.id-back__emergency-left {
+  flex: 0 0 45%;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1.5px solid #000;
+  overflow: hidden;
+}
+
+.id-back__notify-label {
+  font-size: 12px;
+  font-style: italic;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.id-back__field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.id-back__field-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.id-back__field-label {
+  font-size: 10.5px;
+  color: #444;
+  margin-top: 1px;
+}
+
+/* ---- IMPORTANT right panel ---- */
+.id-back__important {
+  flex: 1;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.id-back__important-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 6px 0;
+}
+
+.id-back__important-body {
+  font-size: 12px;
+  color: #000;
+  text-align: justify;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ---- Bottom certification ---- */
+.id-back__bottom {
+  padding: 8px 20px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.id-back__certify {
+  font-size: 13px;
+  text-align: center;
+  color: #000;
+  margin: 0 0 6px 0;
+  line-height: 1.5;
+}
+
+.id-back__principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.id-back__signature {
+  height: 36px;
+  object-fit: contain;
+  margin-bottom: 2px;
+}
+
+.id-back__principal-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000;
+  border-top: 1.5px solid #000;
+  padding-top: 2px;
+  letter-spacing: 1px;
+}
+
+.id-back__principal-title {
+  font-size: 10px;
+  color: #333;
+  letter-spacing: 0.5px;
+}
+
+.id-back {
+  position: relative;
+  width: 856px;
+  height: 540px;
+  background: #ffffff;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Full-bleed background template (if provided) */
+.id-back .id-template-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* All content sits above the bg */
+.id-back > *:not(.id-template-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Top row: Birthdate | Validity ---- */
+.id-back__top-row {
+  display: flex;
+  border-bottom: 1.5px solid #000;
+  height: 62px;
+  align-items: center;
+}
+
+.id-back__top-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+}
+
+.id-back__top-cell--right {
+  border-left: 1.5px solid #000;
+}
+
+.id-back__top-value {
+  font-size: 17px;
+  font-weight: 700;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.id-back__top-label {
+  font-size: 11px;
+  color: #333;
+  margin-top: 2px;
+}
+
+/* ---- Emergency section ---- */
+.id-back__emergency-section {
+  display: flex;
+  height: 330px;
+  border-bottom: 1.5px solid #000;
+}
+
+.id-back__emergency-left {
+  flex: 0 0 45%;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1.5px solid #000;
+  overflow: hidden;
+}
+
+.id-back__notify-label {
+  font-size: 12px;
+  font-style: italic;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.id-back__field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.id-back__field-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1.3;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.id-back__field-label {
+  font-size: 10.5px;
+  color: #444;
+  margin-top: 1px;
+}
+
+/* ---- IMPORTANT right panel ---- */
+.id-back__important {
+  flex: 1;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.id-back__important-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 6px 0;
+}
+
+.id-back__important-body {
+  font-size: 12px;
+  color: #000;
+  text-align: justify;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ---- Bottom certification ---- */
+.id-back__bottom {
+  padding: 8px 20px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.id-back__certify {
+  font-size: 13px;
+  text-align: center;
+  color: #000;
+  margin: 0 0 6px 0;
+  line-height: 1.5;
+}
+
+.id-back__principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.id-back__signature {
+  height: 36px;
+  object-fit: contain;
+  margin-bottom: 2px;
+}
+
+.id-back__principal-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000;
+  border-top: 1.5px solid #000;
+  padding-top: 2px;
+  letter-spacing: 1px;
+}
+
+.id-back__principal-title {
+  font-size: 10px;
+  color: #333;
+  letter-spacing: 0.5px;
+}

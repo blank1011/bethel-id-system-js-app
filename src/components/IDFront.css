@@ -1,0 +1,89 @@
+/* ============================================================
+   ID FRONT — overlay layout on top of the template image
+   Card dimensions: 856 x 540 px (standard CR80 ID at 96dpi)
+   ============================================================ */
+
+.id-front {
+  position: relative;
+  width: 856px;
+  height: 540px;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
+  flex-shrink: 0;
+}
+
+/* Full-bleed background template */
+.id-template-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---- Name block ---- */
+.id-front__name-block {
+  position: absolute;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.id-front__name {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 30px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  max-width: 100%;
+  line-height: 1.15;
+}
+
+/* ---- LRN block ---- */
+.id-front__lrn-block {
+  position: absolute;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.id-front__lrn {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2.5px;
+  max-width: 100%;
+  line-height: 1.1;
+}
+
+/* Shared label style */
+.id-front__label {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* ---- Student Number block ---- */
+.id-front__studentno-block {
+  position: absolute;
+}
+
+.id-front__studentno {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1b3a8a;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.3);
+}

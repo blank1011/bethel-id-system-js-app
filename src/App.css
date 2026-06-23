@@ -1,0 +1,352 @@
+/* ============================================================
+   App Layout
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #1b2e6b;
+  --navy-dark: #13214f;
+  --gold: #e8a020;
+  --gold-light: #f5b94a;
+  --white: #ffffff;
+  --gray-100: #f4f5f8;
+  --gray-200: #e2e4eb;
+  --gray-400: #9098b0;
+  --sidebar-w: 270px;
+  --font: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--gray-100);
+  color: #1a1a2e;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── SIDEBAR ──────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--navy-dark);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar__logo {
+  padding: 20px 18px 16px;
+  background: var(--navy);
+  border-bottom: 3px solid var(--gold);
+  flex-shrink: 0;
+}
+
+.sidebar__logo-title {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.sidebar__logo-sub {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  margin-top: 2px;
+  letter-spacing: 0.5px;
+}
+
+.sidebar__section {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+/* ── Sidebar Groups (Automate Controls / Records) ── */
+.sidebar__group {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar__group-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 14px 16px 8px 16px;
+  margin: 0;
+  border-bottom: 2px solid var(--gold);
+}
+
+.sidebar__section--scroll {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 80px;
+}
+
+.sidebar__section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.sidebar__label {
+  display: block;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 4px;
+}
+
+.sidebar__input {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.07);
+  color: var(--white);
+  font-size: 13px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.sidebar__input:focus {
+  border-color: var(--gold);
+}
+
+.sidebar__input::placeholder { color: rgba(255,255,255,0.3); }
+
+/* ── File Button ── */
+.file-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 7px;
+  background: var(--gold);
+  color: var(--navy-dark);
+  font-size: 13px;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.file-btn:hover { background: var(--gold-light); }
+
+.file-btn--sm {
+  font-size: 12px;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.1);
+  color: var(--white);
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.file-btn--sm:hover { background: rgba(255,255,255,0.18); }
+
+/* ── Messages ── */
+.error-msg {
+  color: #ff6b6b;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.success-msg {
+  color: #6bffb8;
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+/* ── Student List ── */
+.student-list {
+  list-style: none;
+}
+
+.student-list__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-bottom: 2px;
+}
+
+.student-list__item:hover { background: rgba(255,255,255,0.08); }
+
+.student-list__item--active {
+  background: var(--gold) !important;
+  color: var(--navy-dark);
+}
+
+.student-list__num {
+  font-size: 10px;
+  min-width: 20px;
+  text-align: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 4px;
+  padding: 1px 4px;
+  font-weight: 700;
+}
+
+.student-list__item--active .student-list__num {
+  background: rgba(0,0,0,0.15);
+}
+
+.student-list__name {
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Export section ── */
+.sidebar__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.export-btn {
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 7px;
+  border: none;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.export-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.export-btn--primary {
+  background: var(--gold);
+  color: var(--navy-dark);
+}
+
+.export-btn--primary:hover:not(:disabled) { background: var(--gold-light); }
+
+.export-btn--secondary {
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.export-btn--secondary:hover:not(:disabled) { background: rgba(255,255,255,0.2); }
+
+.export-progress {
+  font-size: 11px;
+  color: var(--gold-light);
+  text-align: center;
+}
+
+/* ── PREVIEW AREA ─────────────────────────────── */
+.preview-area {
+  flex: 1;
+  overflow: auto;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.preview-pair {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-400);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* Card wrapper — adds a drop shadow for visual separation */
+.preview-pair > div:not(.preview-label) {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* Hidden renders for batch export — off-screen but in DOM */
+.hidden-renders {
+  position: fixed;
+  left: -20000px;
+  top: 0;
+  opacity: 0;
+  visibility: visible;
+  pointer-events: none;
+}
+
+.sidebar__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.toggle-btn {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.toggle-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+/* ── Empty state ── */
+.empty-state {
+  margin: auto;
+  text-align: center;
+  color: var(--gray-400);
+}
+
+.empty-state p:first-child {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #555;
+}
+
+.empty-state__sub {
+  font-size: 13px;
+  max-width: 500px;
+  line-height: 1.8;
+}
+
+.empty-state__sub code {
+  background: var(--gray-200);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--navy);
+}
+
