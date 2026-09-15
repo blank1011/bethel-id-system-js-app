@@ -53,8 +53,14 @@ app.on('activate', () => {
   }
 });
 
+const formatIndexPrefix = (studentIndex, studentCount) => {
+  if (typeof studentIndex !== 'number') return '';
+  const width = Math.max(2, String(studentCount || studentIndex).length);
+  return `${String(studentIndex).padStart(width, '0')}_`;
+};
+
 // ── IPC: Save PNG file ─────────────────────────────────────
-ipcMain.handle('save-png', async (event, { dataUrl, studentName, side }) => {
+ipcMain.handle('save-png', async (event, { dataUrl, studentName, side, studentIndex, studentCount }) => {
   try {
     const picturesDir = app.getPath('pictures');
     const baseDir = path.join(picturesDir, 'Bethel ID Students');
@@ -64,7 +70,8 @@ ipcMain.handle('save-png', async (event, { dataUrl, studentName, side }) => {
     // Create directories if they don't exist
     await fs.mkdir(studentDir, { recursive: true });
 
-    const filename = `${safeStudentName}_${side === 'BACK' ? 'BACK' : 'FRONT'}.png`;
+    const indexPrefix = formatIndexPrefix(studentIndex, studentCount);
+    const filename = `${indexPrefix}${safeStudentName}_${side === 'BACK' ? 'BACK' : 'FRONT'}.png`;
     const filePath = path.join(studentDir, filename);
 
     // Convert data URL to buffer and write
@@ -80,29 +87,70 @@ ipcMain.handle('save-png', async (event, { dataUrl, studentName, side }) => {
 });
 
 // ── IPC: Save multiple PNG files (for batch export) ────────
-ipcMain.handle('save-pngs-batch', async (event, files) => {
+ipcMain.handle('save-pngs-batch', async (event, files, sideFolder) => {
   const results = [];
 
-  for (const { dataUrl, studentName, isFront } of files) {
+  const picturesDir = app.getPath('pictures');
+  const baseDir = path.join(picturesDir, 'Bethel ID Students');
+  const numberedFrontDir = path.join(baseDir, 'Front');
+  const numberedBackDir = path.join(baseDir, 'Back');
+  await fs.mkdir(numberedFrontDir, { recursive: true });
+  await fs.mkdir(numberedBackDir, { recursive: true });
+
+  for (const { dataUrl, studentName, isFront, studentIndex } of files) {
     try {
-      const picturesDir = app.getPath('pictures');
-      const baseDir = path.join(picturesDir, 'Bethel ID Students');
       const safeStudentName = (studentName || 'Student').replace(/[^a-zA-Z0-9_-]/g, '_');
       const studentDir = path.join(baseDir, safeStudentName);
-
       await fs.mkdir(studentDir, { recursive: true });
 
       const side = isFront ? 'FRONT' : 'BACK';
-      const filename = `${safeStudentName}_${side}.png`;
-      const filePath = path.join(studentDir, filename);
+      const studentFilename = `${safeStudentName}_${side}.png`;
+      const studentFilePath = path.join(studentDir, studentFilename);
+
+      const numberedDir = sideFolder
+        ? path.join(baseDir, sideFolder)
+        : isFront
+          ? numberedFrontDir
+          : numberedBackDir;
+      const numberedFilename = `${studentIndex}.png`;
+      const numberedFilePath = path.join(numberedDir, numberedFilename);
 
       const base64Data = dataUrl.replace(/^data:image\/png;base64,/, '');
       const buffer = Buffer.from(base64Data, 'base64');
-      await fs.writeFile(filePath, buffer);
+      await Promise.all([
+        fs.writeFile(studentFilePath, buffer),
+        fs.writeFile(numberedFilePath, buffer),
+      ]);
 
-      results.push({ success: true, path: filePath });
+      results.push({ success: true, path: studentFilePath, numberedPath: numberedFilePath });
     } catch (error) {
       console.error('Error saving PNG:', error);
+      results.push({ success: false, error: error.message });
+    }
+  }
+
+  return results;
+});
+
+// ── IPC: Save numbered side-only PNG files to separate Front/Back folders ────────
+ipcMain.handle('save-numbered-side-pngs', async (event, { files, sideFolder }) => {
+  const results = [];
+
+  const picturesDir = app.getPath('pictures');
+  const baseDir = path.join(picturesDir, 'Bethel ID Students');
+  const numberedDir = path.join(baseDir, sideFolder);
+  await fs.mkdir(numberedDir, { recursive: true });
+
+  for (const { dataUrl, studentIndex } of files) {
+    try {
+      const numberedFilename = `${studentIndex}.png`;
+      const numberedFilePath = path.join(numberedDir, numberedFilename);
+      const base64Data = dataUrl.replace(/^data:image\/png;base64,/, '');
+      const buffer = Buffer.from(base64Data, 'base64');
+      await fs.writeFile(numberedFilePath, buffer);
+      results.push({ success: true, numberedPath: numberedFilePath });
+    } catch (error) {
+      console.error('Error saving numbered PNG:', error);
       results.push({ success: false, error: error.message });
     }
   }

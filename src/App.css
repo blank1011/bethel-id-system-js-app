@@ -129,6 +129,36 @@ body {
 
 .sidebar__input::placeholder { color: rgba(255,255,255,0.3); }
 
+.photo-adjustment {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+}
+
+.photo-adjustment__row {
+  display: flex;
+  gap: 8px;
+}
+
+.photo-adjustment__row > label {
+  flex: 1;
+}
+
+.photo-adjustment__value {
+  display: block;
+  color: var(--gold-light);
+  font-size: 11px;
+  text-align: right;
+  margin-top: -4px;
+}
+
+.sidebar__range {
+  width: 100%;
+  accent-color: var(--gold);
+}
+
 /* ── File Button ── */
 .file-btn {
   display: inline-flex;
@@ -285,8 +315,8 @@ body {
 
 /* Card wrapper — adds a drop shadow for visual separation */
 .preview-pair > div:not(.preview-label) {
-  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
-  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  border-radius: 1px;
   overflow: hidden;
   display: inline-block;
 }

@@ -1,8 +1,10 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  savePng: (dataUrl, studentName, side) =>
-    ipcRenderer.invoke('save-png', { dataUrl, studentName, side }),
-  savePngsBatch: (files) =>
-    ipcRenderer.invoke('save-pngs-batch', files),
+  savePng: (payload) =>
+    ipcRenderer.invoke('save-png', payload),
+  savePngsBatch: (files, sideFolder) =>
+    ipcRenderer.invoke('save-pngs-batch', files, sideFolder),
+  saveNumberedSidePngsBatch: (files, sideFolder) =>
+    ipcRenderer.invoke('save-numbered-side-pngs', { files, sideFolder }),
 });

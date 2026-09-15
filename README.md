@@ -41,6 +41,13 @@ Use an Excel file with these fields (case-insensitive matching is supported):
 - Address
 - Contact Father
 - Contact Mother
+- Photo (insert the image inside the cell)
+
+For photos, add a `Photo` column and insert one image into each student's Photo
+cell. The app matches the embedded image to the student by its Excel row, then
+automatically crops it into the photo frame on the ID front. Use the Position
+Editor to adjust other ID fields. The photo frame stays fixed, while the Photo
+Crop controls let you zoom and reposition the image inside the frame.
 
 ## Quick Start (Portable Use, No Install)
 
